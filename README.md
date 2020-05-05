@@ -33,5 +33,5 @@ de THREEJS.
 - [] Diseño de la interfaz gráfica
 - [] Diseño del diagrama de estados
 - [] Diseño del diagrama de clases
-- [] Diseño de diagramas de secuencia
+- [ ] Diseño de diagramas de secuencia
 - [x] Un readme super chido para trackear las cosas que tenemos que hacer
