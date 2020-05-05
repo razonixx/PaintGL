@@ -7,8 +7,9 @@ var light;
 var mesh;
 var sceneReady = false;
 var playAnim = true;
+var geometry = null;
 var materialColor = "white";
-var wireframeMaterial = false;
+
 
 function main()
 {
@@ -38,20 +39,17 @@ function main()
 }
        
 function renderLoop() {
-    if(sceneReady)
-    {
         renderer.render(scene, camera);
         if(playAnim)
         {
-        scene.traverse( function( node ) 
-        {
-            if ( node instanceof THREE.Mesh ) 
+            scene.traverse(function(node) 
             {
-                node.rotation.x = node.rotation.x + 0.01;
-                node.rotation.y = node.rotation.y + 0.01;            
-            }
-        });            
+                if(node instanceof THREE.Mesh) 
+                {
+                    node.rotation.x = node.rotation.x + 0.01;
+                    node.rotation.y = node.rotation.y + 0.01;            
+                }
+            });            
         }
-    }
     requestAnimationFrame(renderLoop);
 }
