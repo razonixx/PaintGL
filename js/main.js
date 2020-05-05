@@ -6,6 +6,9 @@ var camera;
 var light;
 var mesh;
 var sceneReady = false;
+var playAnim = true;
+var materialColor = "white";
+var wireframeMaterial = false;
 
 function main()
 {
@@ -37,9 +40,18 @@ function main()
 function renderLoop() {
     if(sceneReady)
     {
-         renderer.render(scene, camera);
-         mesh.rotation.x = mesh.rotation.x + 0.01;
-         mesh.rotation.y = mesh.rotation.y + 0.01;
+        renderer.render(scene, camera);
+        if(playAnim)
+        {
+        scene.traverse( function( node ) 
+        {
+            if ( node instanceof THREE.Mesh ) 
+            {
+                node.rotation.x = node.rotation.x + 0.01;
+                node.rotation.y = node.rotation.y + 0.01;            
+            }
+        });            
+        }
     }
     requestAnimationFrame(renderLoop);
 }
