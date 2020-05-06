@@ -5,8 +5,8 @@
 - [ ] Escalar el modelo seleccionado, orientarlo y posicionarlo en la escena
 - [ ] Especificar una animación al modelo, por ejemplo, especificar una rotación del
 modelo
-- [ ] Seleccionar un modelo de la escena para re-editarlo
-- [ ] Seleccionar un modelo de la escena para eliminarlo
+- [x] Seleccionar un modelo de la escena para re-editarlo
+- [x] Seleccionar un modelo de la escena para eliminarlo
 - [ ] Agregar una cámara
 - [ ] Especificar los parámetros de la cámara (eye, target, up)
 - [ ] Especificar el tipo de proyección
@@ -15,9 +15,12 @@ modelo
 - [x] Pausar una animación
 - [x] Reiniciar la animación
 ## Cámara
-- [ ] Orbitar la cámara, reposicionarla, reorientarla, hacer zoom, pan o pitch.
+- [ ] Orbitar la cámara 
+- [x] reposicionarla
+- [x] reorientarla
+- [x] hacer zoom, pan o pitch.
 ## Geometrías
-- [ ] Todas las primitivas disponibles en THREEJS
+- [x] Todas las primitivas disponibles en THREEJS
 - [x] Cualquier Geometría en algún formato 3D (por ejemplo OBJ) y permitir que se pueda
 cargar a través de la interfaz de la aplicación
 - [ ] Al menos una Geometría compuesta que haya sido especificada previamente en la

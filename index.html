@@ -3,52 +3,128 @@
     <title>threejs</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/my-style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="js/lib/three.min.js" type="text/javascript"></script>
+    <script src="js/lib/orbit-controls.js" type="text/javascript"></script>
     <script src="js/event-handler.js" type="text/javascript"></script>
     <script src="js/main.js" type="text/javascript"></script>
 </head>
 <body onload = main();>
-	<h1>My Paint Scene 3D</h1>
-	<table>
-      <tr>
-        <td><img id="img-selector" class="action" src="imgs/selector.png" alt="" onclick="toolsEvent('0');"/></td>
-        <td><img id="img-eraser" class="action" src="imgs/eraser.png" alt="" onclick="toolsEvent('2');"></td>
+    <h1>My Paint Scene 3D</h1>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <div></div>
 
-        <td rowspan="20"><canvas id="canvas" width="500" height="500"></canvas></td>
-      </tr>
-      <tr>
-        <td><img id="img-point" class="action" src="imgs/cube.png" alt="" onclick="toolsEvent('1');"/></td>
-        <td><img id="img-segment" class="action" src="imgs/wireframe.jpg" alt="" onclick="toolsEvent('3');"/></td>
-      </tr>
-      <tr>
-        <td><img id="img-clear-all" class="action" src="imgs/solid.png" alt="" onclick="toolsEvent('4');"/></td>
-        <td><img id="img-triangle" class="action" src="imgs/icosahedron.jpg" alt="" onclick="toolsEvent('5');"/></td>
-      </tr>
-      <tr>
-        <td><img id="img-line-width" class="action" src="imgs/cone.jpg" alt="" onclick="toolsEvent('6');"/></td>
-        <td><img id="img-rectangle" class="action" src="imgs/cube.jpg" alt="" onclick="toolsEvent('7');"/></td>
-      </tr>
-      <tr>
-        <td><img id="img-clear-all" class="action" src="imgs/mario_cube.jpeg" alt="" onclick="toolsEvent('10');"/></td>
-        <td><img id="img-clear-all" class="action" src="imgs/cone_texture.jpg" alt="" onclick="toolsEvent('12');"/></td>
-      </tr>
-      <tr>
-        <td><img id="img-clear-all" class="action" src="imgs/wolf_icon.jpg" alt="" onclick="toolsEvent('13');"/></td>
-        <td><img id="img-clear-all" class="action" src="imgs/logo.png" alt="" onclick="toolsEvent('4');"/></td>
-      </tr>
-      <tr>
-        <td><img id="img-clear-all" class="action" src="imgs/logo.png" alt="" onclick="toolsEvent('4');"/></td>
-        <td><img id="img-clear-all" class="action" src="imgs/logo.png" alt="" onclick="toolsEvent('4');"/></td>
-      </tr>
-      <tr>
-        <td><img id="img-fill-polygon" class="action" src="imgs/play.jpg" alt="" onclick="toolsEvent('8');"/></td>
-        <td><img id="img-circle" class="action" src="imgs/pause.png" alt="" onclick="toolsEvent('9');"/></td>
-      </tr>
-      <tr>
-        <td><input id="color-palette" class="action" src="imgs/pallete.png" type="color" name="name" value="#000000" onchange="colorPaletteEvent();"></td>
-        <td><img id="img-polygon" class="action" src="imgs/reset.png" alt="" onclick="toolsEvent('11');"/></td>
-      </tr>
-    </table>
-    <div style="float: center;">
+    <div class="btn-group"> 
+      <button type="button" class="btn btn-primary" disabled >Select</button>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div id="SelectList" class="dropdown-menu">
+      </div>
+    </div>
+
+    <div class="btn-group"> 
+      <button type="button" class="btn btn-primary" disabled >Erase</button>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div id="EraseList" class="dropdown-menu">
+      </div>
+    </div>
+    
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" disabled>Geometries</button>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#" onclick="toolsEvent('7');">Cube</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('5');">Icosahedron</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('6');">Cone</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('14');">Cylinder</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('15');">Dodecahedron</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('18');">Octahedron</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('19');">Ring</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('20');">Sphere</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('21');">Tetrahedron</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('22');">Torus</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('23');">Torus Knot</a>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" disabled>Materials</button>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#" onclick="toolsEvent('1');">Normal</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('3');">Wireframe</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('4');">Basic</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('24');">Depth</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('25');">Lambert</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('26');">Phong</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('27');">Standard</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('28');">Toon</a>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" disabled>Animation</button>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#" onclick="toolsEvent('8');">Play</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('9');">Pause</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('11');">Reset</a>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" disabled>Textures</button>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#" onclick="toolsEvent('10');">Mario ? Cube Texture</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('12');">Icecone Texture</a>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" disabled>Models</button>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#" onclick="toolsEvent('13');">Wolf Model</a>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" disabled>Camera</button>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div class="dropdown-menu">
+        <!--<a class="dropdown-item" href="#" onclick="toolsEvent('29');">Start Orbit</a>
+        <a class="dropdown-item" href="#" onclick="toolsEvent('30');">Stop Orbit</a>-->
+        <p class="dropdown-item">Rotate: Drag Left Click</p>
+        <p class="dropdown-item">Dolly: Drag Mid Click</p>
+        <p class="dropdown-item">Pan: Drag Right Click</p>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-warning" disabled><input id="color-palette" class="action" src="imgs/pallete.png" type="color" name="name" value="#000000" onchange="colorPaletteEvent();"></button>
+    </div>
+    <div></div>
+    <div>
+      <h3>Hola</h3>
+    </div>
 </body>
 </html>

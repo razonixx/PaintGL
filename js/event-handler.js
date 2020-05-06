@@ -2,9 +2,15 @@ function toolsEvent(evt)
 {    
     switch (evt) {
       case '1': // Normal Material
+        if(geometry == null)
+        {
+          console.log("Need to define a geometry first");
+          break;
+        }
         var material = new THREE.MeshNormalMaterial();  
         mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh);
+        addToSelect(mesh.id);
         break;
       case '2': // Eraser
         break;
@@ -88,6 +94,59 @@ function toolsEvent(evt)
         }
       );
         break;
+        case '14':
+          geometry = new THREE.CylinderGeometry();
+          break;
+        case '15':
+          geometry = new THREE.DodecahedronGeometry();
+          break;
+        case '18':
+          geometry = new THREE.OctahedronGeometry();
+          break;
+        case '19':
+          geometry = new THREE.RingGeometry();
+          break;
+        case '20':
+          geometry = new THREE.SphereGeometry();
+          break;
+        case '21':
+          geometry = new THREE.TetrahedronGeometry();
+          break;
+        case '22':
+          geometry = new THREE.TorusGeometry();
+          break;
+        case '23':
+          geometry = new THREE.TorusKnotGeometry();
+          break;
+        case '24':
+          var material = new THREE.MeshDepthMaterial();  
+          mesh = new THREE.Mesh(geometry, material);
+          scene.add(mesh);
+          break;
+        case '25':
+          var material = new THREE.MeshLambertMaterial({color:materialColor});  
+          mesh = new THREE.Mesh(geometry, material);
+          scene.add(mesh);
+          break;
+        case '26':
+          var material = new THREE.MeshPhongMaterial({color:materialColor});  
+          mesh = new THREE.Mesh(geometry, material);
+          scene.add(mesh);
+          break;
+        case '27':
+          var material = new THREE.MeshStandardMaterial({color:materialColor});  
+          mesh = new THREE.Mesh(geometry, material);
+          scene.add(mesh);
+          break;
+        case '28':
+          var material = new THREE.MeshToonMaterial({color:materialColor});  
+          mesh = new THREE.Mesh(geometry, material);
+          scene.add(mesh);
+          break;
+        case '29':
+          cameraControls.autoRoatate = true;
+          orbitCamera = true;
+          break;
       default:
         console.log("Not implemented");
         break;
@@ -100,8 +159,48 @@ function colorPaletteEvent(event)
   materialColor = document.getElementById("color-palette").value;
 }
 
-
 function initEventHandler(evt)
 {
-	
+}
+
+function addToSelect(id)
+{
+  var node = document.createElement("a");
+  var textnode = document.createTextNode("Mesh " + id);
+  node.appendChild(textnode);
+  node.className="dropdown-item";
+  node.id = "S-" + id;
+  node.href="#";
+  node.onclick=(function() { selectGeometry(id); });
+  document.getElementById("SelectList").appendChild(node);
+  addToErase(id);
+}
+
+function addToErase(id)
+{
+  var node = document.createElement("a");
+  var textnode = document.createTextNode("Mesh " + id);
+  node.appendChild(textnode);
+  node.className="dropdown-item";
+  node.id = "E-" + id;
+  node.href="#";
+  node.onclick=(function() { eraseGeometry(id); });
+  document.getElementById("EraseList").appendChild(node);
+}
+
+
+function selectGeometry(id)
+{
+  // Aqui podemos manipular el objeto, poniendo una UI para que el usuario lo modifique
+  console.log(scene.getObjectById(id, true));
+}
+
+function eraseGeometry(id) 
+{
+  const object = scene.getObjectById(id, true);
+  object.geometry.dispose();
+  object.material.dispose();
+  scene.remove( object );  
+  document.getElementById("S-"+id).remove();
+  document.getElementById("E-"+id).remove();
 }

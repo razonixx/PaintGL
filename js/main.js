@@ -9,7 +9,10 @@ var sceneReady = false;
 var playAnim = true;
 var geometry = null;
 var materialColor = "white";
+var geometryCount = 0;
 
+var cameraControls;
+var orbitCamera = false;
 
 function main()
 {
@@ -24,7 +27,8 @@ function main()
 
     // CAMERAS
     camera = new THREE.PerspectiveCamera(60., canvas.width / canvas.height, 0.01, 10000.);  // CAMERA
-    camera.position.set(0., 0., 5.);           
+    camera.position.set(0., 0., 5.);    
+    cameraControls = new THREE.OrbitControls(camera, renderer.domElement);   
 
     // SCENE
     scene = new THREE.Scene();                                 
@@ -35,21 +39,22 @@ function main()
     initEventHandler();
 
     // ACTION
-    requestAnimationFrame(renderLoop);              // RENDER LOOP
+    requestAnimationFrame(renderLoop);
 }
        
 function renderLoop() {
-        renderer.render(scene, camera);
-        if(playAnim)
+    //cameraControls.update();
+    renderer.render(scene, camera);
+    if(playAnim)
+    {
+        scene.traverse(function(node) 
         {
-            scene.traverse(function(node) 
+            if(node instanceof THREE.Mesh) 
             {
-                if(node instanceof THREE.Mesh) 
-                {
-                    node.rotation.x = node.rotation.x + 0.01;
-                    node.rotation.y = node.rotation.y + 0.01;            
-                }
-            });            
-        }
+                node.rotation.x = node.rotation.x + 0.01;
+                node.rotation.y = node.rotation.y + 0.01;            
+            }
+        });            
+    }
     requestAnimationFrame(renderLoop);
 }
