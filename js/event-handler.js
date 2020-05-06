@@ -22,6 +22,7 @@ function toolsEvent(evt)
           });  
         mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh);
+        addToSelect(mesh.id);
         break;
       case '4': // Basic Material
         var material = new THREE.MeshBasicMaterial(
@@ -30,6 +31,7 @@ function toolsEvent(evt)
           });  
         mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh);
+        addToSelect(mesh.id);
         break;
       case '5': // Icosahedron Geometry
         geometry = new THREE.IcosahedronGeometry();
@@ -51,6 +53,7 @@ function toolsEvent(evt)
           });
           mesh = new THREE.Mesh(geometry, material);
           scene.add(mesh);
+          addToSelect(mesh.id);
           break;
       case '11': // Reset Animation
         scene.traverse(function(node) 
@@ -68,6 +71,7 @@ function toolsEvent(evt)
         });
         mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh);
+        addToSelect(mesh.id);
         break;
       case '13': // Wolf Model
       var loader = new THREE.ObjectLoader();
@@ -81,6 +85,7 @@ function toolsEvent(evt)
         function ( obj ) {
           // Add the loaded object to the scene
           scene.add( obj );
+          addToSelect(obj.id);
         },
       
         // onProgress callback
@@ -122,30 +127,36 @@ function toolsEvent(evt)
           var material = new THREE.MeshDepthMaterial();  
           mesh = new THREE.Mesh(geometry, material);
           scene.add(mesh);
+          addToSelect(mesh.id);
           break;
         case '25':
           var material = new THREE.MeshLambertMaterial({color:materialColor});  
           mesh = new THREE.Mesh(geometry, material);
           scene.add(mesh);
+          addToSelect(mesh.id);
           break;
         case '26':
           var material = new THREE.MeshPhongMaterial({color:materialColor});  
           mesh = new THREE.Mesh(geometry, material);
           scene.add(mesh);
+          addToSelect(mesh.id);
           break;
         case '27':
           var material = new THREE.MeshStandardMaterial({color:materialColor});  
           mesh = new THREE.Mesh(geometry, material);
           scene.add(mesh);
+          addToSelect(mesh.id);
           break;
         case '28':
           var material = new THREE.MeshToonMaterial({color:materialColor});  
           mesh = new THREE.Mesh(geometry, material);
           scene.add(mesh);
+          addToSelect(mesh.id);
           break;
         case '29':
           cameraControls.autoRoatate = true;
           orbitCamera = true;
+          // No puedo hacer que rote
           break;
       default:
         console.log("Not implemented");
@@ -198,8 +209,10 @@ function selectGeometry(id)
 function eraseGeometry(id) 
 {
   const object = scene.getObjectById(id, true);
-  object.geometry.dispose();
-  object.material.dispose();
+  if(object.geometry != null)
+    object.geometry.dispose();
+  if(object.material != null)
+    object.material.dispose();
   scene.remove( object );  
   document.getElementById("S-"+id).remove();
   document.getElementById("E-"+id).remove();
