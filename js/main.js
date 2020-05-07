@@ -13,6 +13,7 @@ var geometryCount = 0;
 
 var cameraControls;
 var orbitCamera = false;
+var groupArray = [];
 
 function main()
 {

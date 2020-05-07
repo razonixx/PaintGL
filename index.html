@@ -184,6 +184,16 @@
     </div>
 
     <div class="btn-group">
+      <button type="button" class="btn btn-primary" disabled>Groups</button>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div id="GroupList" class="dropdown-menu">
+        <a class="dropdown-item" href="#" onclick="createGroup();">Create new group</a>
+      </div>
+    </div>
+
+    <div class="btn-group">
       <button type="button" class="btn btn-warning" disabled><input id="color-palette" class="action" src="imgs/pallete.png" type="color" name="name" value="#000000" onchange="colorPaletteEvent();"></button>
     </div>
     <div></div>
