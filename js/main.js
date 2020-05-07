@@ -6,7 +6,7 @@ var camera;
 var light;
 var mesh;
 var sceneReady = false;
-var playAnim = false;
+var playAnim = true;
 var geometry = null;
 var materialColor = "white";
 var geometryCount = 0;
@@ -30,7 +30,6 @@ function main()
     camera.position.set(0., 0., 5.);    
     cameraControls = new THREE.OrbitControls(camera, renderer.domElement);   
     cameraControls.autoRotateSpeed = 10.0;
-    cameraControls.update();
 
     // SCENE
     scene = new THREE.Scene();                                 

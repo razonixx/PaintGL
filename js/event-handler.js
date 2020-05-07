@@ -164,6 +164,23 @@ function toolsEvent(evt)
     }
 }
 
+function perspectiveProjection()
+{
+  camera = new THREE.PerspectiveCamera(60., canvas.width / canvas.height, 0.01, 10000.);
+  camera.position.set(0., 0., 5.); 
+  cameraControls = new THREE.OrbitControls(camera, renderer.domElement);   
+  cameraControls.autoRotateSpeed = 10.0;
+}
+
+function orthographicProjection()
+{
+  camera = new THREE.OrthographicCamera(canvas.width / - 2, canvas.width / 2, canvas.height / 2, canvas.height / - 2, 0.01, 1000);
+  camera.position.set(0., 0., 5.); 
+  camera.updateProjectionMatrix();
+  cameraControls = new THREE.OrbitControls(camera, renderer.domElement);   
+  cameraControls.autoRotateSpeed = 10.0;
+}
+
 function colorPaletteEvent(event)
 {
   //console.log(document.getElementById("color-palette").value);
