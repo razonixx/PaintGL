@@ -15,7 +15,7 @@ modelo
 - [x] Pausar una animación
 - [x] Reiniciar la animación
 ## Cámara
-- [ ] Orbitar la cámara 
+- [x] Orbitar la cámara 
 - [x] reposicionarla
 - [x] reorientarla
 - [x] hacer zoom, pan o pitch.
