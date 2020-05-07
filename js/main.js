@@ -6,13 +6,12 @@ var camera;
 var light;
 var mesh;
 var sceneReady = false;
-var playAnim = true;
+var playAnim = false;
 var geometry = null;
 var materialColor = "white";
 var geometryCount = 0;
 
 var cameraControls;
-var orbitCamera = false;
 var groupArray = [];
 var selectedGeometryId = 0;
 
@@ -31,6 +30,8 @@ function main()
     camera = new THREE.PerspectiveCamera(60., canvas.width / canvas.height, 0.01, 10000.);  // CAMERA
     camera.position.set(0., 0., 5.);    
     cameraControls = new THREE.OrbitControls(camera, renderer.domElement);   
+    cameraControls.autoRotateSpeed = 10.0;
+    cameraControls.update();
 
     // SCENE
     scene = new THREE.Scene();                                 
@@ -45,9 +46,7 @@ function main()
 }
        
 function renderLoop() {
-    //cameraControls.update();
-    /*if(selectedGeometryId != 0)
-        selectGeometry(selectedGeometryId);*/
+    cameraControls.update();
     renderer.render(scene, camera);
     if(playAnim)
     {

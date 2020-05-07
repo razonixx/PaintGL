@@ -154,10 +154,10 @@ function toolsEvent(evt)
           addToSelect(mesh.id);
           break;
         case '29':
-          cameraControls.autoRoatate = true;
-          orbitCamera = true;
-          // No puedo hacer que rote
+          cameraControls.autoRotate = true;
           break;
+        case '30':
+          cameraControls.autoRotate = false;
       default:
         console.log("Not implemented");
         break;
