@@ -14,7 +14,71 @@
 </head>
 <body onload = main();>
     <h1>My Paint Scene 3D</h1>
-    <canvas id="canvas" width="1000" height="500"></canvas>
+    <div class="containter">
+    <div class="row">
+      <div class="col-sm">
+        <canvas id="canvas" width="1000" height="500"></canvas>
+      </div>
+      <div class="col-sm">
+        <b>Scaling</b>
+        <div>
+          X <input id="scale-x" type="text" value="0" size="5" style="text-align:right;">
+          Y <input id="scale-y" type="text" value="0" size="5" style="text-align:right;">
+          Z <input id="scale-z" type="text" value="0" size="5" style="text-align:right;">
+        </div>
+        <hr>
+        <b>Translation</b>
+        <div>
+          X <input id="trans-x" type="text" value="0" size="5" style="text-align:right;">
+          Y <input id="trans-y" type="text" value="0" size="5" style="text-align:right;">
+          Z <input id="trans-z" type="text" value="0" size="5" style="text-align:right;">
+        </div>
+        <hr>
+        <b>Rotation</b>
+        <div>
+          X <input id="rot-x" type="text" value="0" size="5" style="text-align:right;">
+          Y <input id="rot-y" type="text" value="0" size="5" style="text-align:right;">
+          Z <input id="rot-z" type="text" value="0" size="5" style="text-align:right;">
+        </div>
+        <hr>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" disabled>Geometries</button>
+          <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#" onclick="">Cube</a>
+            <a class="dropdown-item" href="#" onclick="">Icosahedron</a>
+            <a class="dropdown-item" href="#" onclick="">Cone</a>
+            <a class="dropdown-item" href="#" onclick="">Cylinder</a>
+            <a class="dropdown-item" href="#" onclick="">Dodecahedron</a>
+            <a class="dropdown-item" href="#" onclick="">Octahedron</a>
+            <a class="dropdown-item" href="#" onclick="">Ring</a>
+            <a class="dropdown-item" href="#" onclick="">Sphere</a>
+            <a class="dropdown-item" href="#" onclick="">Tetrahedron</a>
+            <a class="dropdown-item" href="#" onclick="">Torus</a>
+            <a class="dropdown-item" href="#" onclick="">Torus Knot</a>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" disabled>Material</button>
+          <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#" onclick="">Normal</a>
+            <a class="dropdown-item" href="#" onclick="">Wireframe</a>
+            <a class="dropdown-item" href="#" onclick="">Basic</a>
+            <a class="dropdown-item" href="#" onclick="">Depth</a>
+            <a class="dropdown-item" href="#" onclick="">Lambert</a>
+            <a class="dropdown-item" href="#" onclick="">Phong</a>
+            <a class="dropdown-item" href="#" onclick="">Standard</a>
+            <a class="dropdown-item" href="#" onclick="">Toon</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
     <div></div>
 
     <div class="btn-group"> 
@@ -123,8 +187,5 @@
       <button type="button" class="btn btn-warning" disabled><input id="color-palette" class="action" src="imgs/pallete.png" type="color" name="name" value="#000000" onchange="colorPaletteEvent();"></button>
     </div>
     <div></div>
-    <div>
-      <h3>Hola</h3>
-    </div>
 </body>
 </html>
