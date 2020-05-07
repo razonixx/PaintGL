@@ -14,6 +14,7 @@ var geometryCount = 0;
 var cameraControls;
 var orbitCamera = false;
 var groupArray = [];
+var selectedGeometryId = 0;
 
 function main()
 {
@@ -45,15 +46,18 @@ function main()
        
 function renderLoop() {
     //cameraControls.update();
+    /*if(selectedGeometryId != 0)
+        selectGeometry(selectedGeometryId);*/
     renderer.render(scene, camera);
     if(playAnim)
     {
         scene.traverse(function(node) 
         {
-            if(node instanceof THREE.Mesh) 
+            if(node instanceof THREE.Mesh && node.name != "") 
             {
                 node.rotation.x = node.rotation.x + 0.01;
-                node.rotation.y = node.rotation.y + 0.01;            
+                node.rotation.y = node.rotation.y + 0.01;   
+                node.rotation.z = node.rotation.z + 0.01;            
             }
         });            
     }
