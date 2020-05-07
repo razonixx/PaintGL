@@ -217,3 +217,18 @@ function eraseGeometry(id)
   document.getElementById("S-"+id).remove();
   document.getElementById("E-"+id).remove();
 }
+
+function createGroup()
+{
+  var group = new THREE.Group();
+  groupArray.push(group);
+  var id = groupArray.length;
+  var node = document.createElement("a");
+  var textnode = document.createTextNode("Group " + id);
+  node.appendChild(textnode);
+  node.className="dropdown-item";
+  node.id = "G-" + id;
+  node.href="#";
+  node.onclick=(function() { console.log(id) });
+  document.getElementById("GroupList").appendChild(node);
+}
