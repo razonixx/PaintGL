@@ -193,7 +193,6 @@ function orthographicProjection()
 
 function colorPaletteEvent(event)
 {
-  //console.log(document.getElementById("color-palette").value);
   materialColor = document.getElementById("color-palette").value;
 }
 
@@ -214,6 +213,19 @@ function addToSelect(id)
   addToErase(id);
 }
 
+function addToSelectGroup(id)
+{
+  var node = document.createElement("a");
+  var textnode = document.createTextNode("Group " + id);
+  node.appendChild(textnode);
+  node.className="dropdown-item";
+  node.id = "SG-" + id;
+  node.href="#";
+  node.onclick=(function() { selectGeometry(id); });
+  document.getElementById("SelectList").appendChild(node);
+  addToEraseGroup(id);
+}
+
 function addToErase(id)
 {
   var node = document.createElement("a");
@@ -226,11 +238,80 @@ function addToErase(id)
   document.getElementById("EraseList").appendChild(node);
 }
 
+function addToEraseGroup(id)
+{
+  var node = document.createElement("a");
+  var textnode = document.createTextNode("Group " + id);
+  node.appendChild(textnode);
+  node.className="dropdown-item";
+  node.id = "EG-" + id;
+  node.href="#";
+  node.onclick=(function() { eraseGroup(id); });
+  document.getElementById("EraseList").appendChild(node);
+}
 
 function selectGeometry(id)
 {
-  // Aqui podemos manipular el objeto, poniendo una UI para que el usuario lo modifique
-  console.log(scene.getObjectById(id, true));
+  var transX = document.getElementById("trans-x");
+  var transY = document.getElementById("trans-y");
+  var transZ = document.getElementById("trans-z");
+
+  var rotX = document.getElementById("rot-x");
+  var rotY = document.getElementById("rot-y");
+  var rotZ = document.getElementById("rot-z");
+
+  var scaleX = document.getElementById("scale-x");
+  var scaleY = document.getElementById("scale-y");
+  var scaleZ = document.getElementById("scale-z");
+
+  var geometryButton = document.getElementById("selectGeometryButton");
+  var dropDownGeometry = document.getElementById("dropDownGeometry");
+  var materialButton = document.getElementById("selectMaterialButton");
+  var dropDownMaterial = document.getElementById("dropDownMaterial");
+
+  var animationButtonDropDown = document.getElementById("animationButtonDropDown");
+  var groupDropDown = document.getElementById("groupDrop");
+
+  selectedGeometryId = id;
+  var mesh = scene.getObjectById(id, true);
+  if(mesh == undefined)
+  {
+    mesh = scene.getObjectByName("Group-"+id, true);
+    dropDownGeometry.disabled=true;
+    dropDownMaterial.disabled=true;
+    animationButtonDropDown.disabled=true;
+    groupDropDown.disabled=true;
+  }
+  else
+  {
+    geometryButton.innerHTML = mesh.geometry.type;
+    materialButton.innerHTML = mesh.material.type;
+    dropDownGeometry.disabled=false;
+    dropDownMaterial.disabled=false;
+    animationButtonDropDown.disabled=false;
+    groupDropDown.disabled=false;
+  }
+
+
+  transX.value = mesh.position.x;
+  transY.value = mesh.position.y;
+  transZ.value = mesh.position.z;
+
+  rotX.value = mesh.rotation.x;
+  rotY.value = mesh.rotation.y;
+  rotZ.value = mesh.rotation.z;
+
+
+  transX.disabled=false;
+  transY.disabled=false;
+  transZ.disabled=false;
+  rotX.disabled=false;
+  rotY.disabled=false;
+  rotZ.disabled=false;
+  scaleX.disabled=false;
+  scaleY.disabled=false;
+  scaleZ.disabled=false;
+
 }
 
 function eraseGeometry(id) 
@@ -245,10 +326,40 @@ function eraseGeometry(id)
   document.getElementById("E-"+id).remove();
 }
 
+function eraseGroup(id) 
+{
+  const object = scene.getObjectById(id, true);
+  scene.remove( object );  
+  document.getElementById("SG-"+id).remove();
+  document.getElementById("EG-"+id).remove();
+}
+
 function createGroup()
 {
   var group = new THREE.Group();
   groupArray.push(group);
+  var id = groupArray.length;
+  var node = document.createElement("p");
+  var textnode = document.createTextNode("Group " + id);
+  node.appendChild(textnode);
+  node.className="dropdown-item";
+  node.id = "Gr-" + id;
+  //node.href="#";
+  //node.onclick=(function() {addGroupToScene(group, id)});
+  document.getElementById("GroupList").appendChild(node);
+  addMeshButtonToGroupSelect();
+  addGroupToScene(group, id);
+}
+
+function addGroupToScene(group, id)
+{
+  group.name = "Group-"+id;
+  scene.add( group );
+  addToSelectGroup(id);
+}
+
+function addMeshButtonToGroupSelect()
+{
   var id = groupArray.length;
   var node = document.createElement("a");
   var textnode = document.createTextNode("Group " + id);
@@ -256,6 +367,145 @@ function createGroup()
   node.className="dropdown-item";
   node.id = "G-" + id;
   node.href="#";
-  node.onclick=(function() { console.log(id) });
-  document.getElementById("GroupList").appendChild(node);
+  node.onclick=(function() {addMeshToGroup(this);});
+  document.getElementById("GroupListSelect").appendChild(node);
+}
+
+function addMeshToGroup(groupId)
+{
+  var id = groupId.id.substring(2);
+  var mesh = scene.getObjectById(selectedGeometryId, true);
+  groupArray[id-1].add(mesh);
+  //scene.add(mesh);
+  //console.log(groupArray[id-1]);
+}
+
+function updateGeometry(id, property)
+{
+  var mesh = scene.getObjectById(id, true);
+  if(mesh == undefined)
+    mesh = scene.getObjectByName("Group-"+id, true);
+  switch (property) {
+    case "transX":
+      mesh.position.x = document.getElementById("trans-x").value;
+      break;
+    case "transY":
+      mesh.position.y = document.getElementById("trans-y").value;
+      break;
+    case "transZ":
+      mesh.position.z = document.getElementById("trans-z").value;
+      break;
+    case "rotX":
+      mesh.rotation.x = document.getElementById("rot-x").value;
+      break;
+    case "rotY":
+      mesh.rotation.y = document.getElementById("rot-y").value;
+      break;
+    case "rotZ":
+      mesh.rotation.z = document.getElementById("rot-z").value;
+      break;
+    case "scale":
+      mesh.scale.set(document.getElementById("scale-x").value, document.getElementById("scale-y").value, document.getElementById("scale-z").value);
+      break;
+    default:
+      break;
+  }
+}
+
+function updateMeshGeometry(id, geometry)
+{
+  var mesh = scene.getObjectById(id, true);
+  document.getElementById("selectGeometryButton").innerHTML = geometry;
+  mesh.geometry.dispose();
+  switch (geometry) {
+    case "Box":
+      mesh.geometry = new THREE.BoxGeometry();
+      break;
+    case "Icosahedron":
+      mesh.geometry = new THREE.IcosahedronGeometry();
+      break;
+    case "Cone":
+      mesh.geometry = new THREE.ConeGeometry();
+      break;
+    case "Cylinder":
+      mesh.geometry = new THREE.CylinderGeometry();
+      break;
+    case "Dodecahedron":
+      mesh.geometry = new THREE.DodecahedronGeometry();
+      break;
+    case "Octahedron":
+      mesh.geometry = new THREE.OctahedronGeometry();
+      break;
+    case "Ring":
+      mesh.geometry = new THREE.RingGeometry();
+      break;
+    case "Sphere":
+      mesh.geometry = new THREE.SphereGeometry();
+      break;
+    case "Tetrahedron":
+      mesh.geometry = new THREE.TetrahedronGeometry();
+      break;
+    case "Torus":
+      mesh.geometry = new THREE.TorusGeometry();
+      break;
+    case "Torus Knot":
+      mesh.geometry = new THREE.TorusKnotGeometry();
+      break;
+    default:
+      break;
+  }
+}
+
+function updateMeshMaterial(id, material)
+{
+  var mesh = scene.getObjectById(id, true);
+  document.getElementById("selectMaterialButton").innerHTML = material;
+  mesh.material.dispose();
+  switch (material) {
+    case "Normal":
+      mesh.material = new THREE.MeshNormalMaterial();
+      break;
+    case "Wireframe":
+      mesh.material = new THREE.MeshBasicMaterial(
+        {
+          color:materialColor,
+          wireframe:true
+        });  
+      break;
+    case "Basic":
+      mesh.material = new THREE.MeshBasicMaterial({color:materialColor});
+      break;
+    case "Depth":
+      mesh.material = new THREE.MeshDepthMaterial({color:materialColor});
+      break;
+    case "Lambert":
+      mesh.material = new THREE.MeshLambertMaterial({color:materialColor});
+      break;
+    case "Phong":
+      mesh.material = new THREE.MeshPhongMaterial({color:materialColor});
+      break;
+    case "Standard":
+      mesh.material = new THREE.MeshStandardMaterial({color:materialColor});
+      break;
+    case "Toon":
+      mesh.material = new THREE.MeshToonMaterial({color:materialColor});
+      break;
+    default:
+      break;
+  }
+}
+
+function toggleAnimation(id)
+{
+  var mesh = scene.getObjectById(id, true);
+  if(mesh.name == "")
+  {
+    mesh.name = "anim"+id;
+    document.getElementById("animationButton").innerHTML = "Animated: True";
+  }
+  else
+  {
+    mesh.name = "";
+    document.getElementById("animationButton").innerHTML = "Animated: False";
+  }
 }

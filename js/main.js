@@ -19,6 +19,7 @@ var cameraZ = 5.;
 
 var cameraControls;
 var groupArray = [];
+var selectedGeometryId = 0;
 
 function main()
 {
@@ -56,10 +57,11 @@ function renderLoop() {
     {
         scene.traverse(function(node) 
         {
-            if(node instanceof THREE.Mesh) 
+            if(node instanceof THREE.Mesh && node.name != "") 
             {
                 node.rotation.x = node.rotation.x + 0.01;
-                node.rotation.y = node.rotation.y + 0.01;            
+                node.rotation.y = node.rotation.y + 0.01;   
+                node.rotation.z = node.rotation.z + 0.01;            
             }
         });            
     }
