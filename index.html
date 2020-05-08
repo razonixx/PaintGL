@@ -39,6 +39,28 @@
           X <input type="number" id="scale-x" value="1" min="-100" max="100" step=".1" onchange="updateGeometry(selectedGeometryId, 'scale');" disabled style="text-align:right;">    
           Y <input type="number" id="scale-y" value="1" min="-100" max="100" step=".1" onchange="updateGeometry(selectedGeometryId, 'scale');" disabled style="text-align:right;">    
           Z <input type="number" id="scale-z" value="1" min="-100" max="100" step=".1" onchange="updateGeometry(selectedGeometryId, 'scale');" disabled style="text-align:right;">    
+        </div>     
+        <hr>
+        <div>
+          Camera x <input id="cam-x" type="text" value="0" size="5" style="text-align:right;">
+          Camera y <input id="cam-y" type="text" value="0" size="5" style="text-align:right;">
+          Camera z <input id="cam-z" type="text" value="0" size="5" style="text-align:right;">
+        </div>
+        <hr>
+        <div>
+          left <input id="left" type="text" value="0" size="5" style="text-align:right;">
+          right <input id="right" type="text" value="0" size="5" style="text-align:right;">
+          top <input id="top" type="text" value="0" size="5" style="text-align:right;">
+        </div>
+        <div>
+          bottom <input id="bottom" type="text" value="0" size="5" style="text-align:right;">
+          near <input id="near" type="text" value="0" size="5" style="text-align:right;">
+          far <input id="far" type="text" value="0" size="5" style="text-align:right;">
+        </div>
+        <br></br>
+        <div>
+          <button type="button" class="btn btn-primary" onclick="perspectiveProjection()" enabled>Perspective</button>
+          <button type="button" class="btn btn-primary" onclick="orthographicProjection()" enabled>Orthographic</button>
         </div>
         <hr>
         <div class="btn-group">
@@ -218,3 +240,4 @@
     <div></div>
 </body>
 </html>
+

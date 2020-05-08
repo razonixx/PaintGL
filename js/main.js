@@ -6,10 +6,16 @@ var camera;
 var light;
 var mesh;
 var sceneReady = false;
-var playAnim = false;
+var playAnim = true;
 var geometry = null;
 var materialColor = "white";
 var geometryCount = 0;
+var width = 1000;
+var height = 500;
+var aRatio = width / height;
+var cameraX = 0.;
+var cameraY = 0.;
+var cameraZ = 5.;
 
 var cameraControls;
 var groupArray = [];
@@ -28,10 +34,9 @@ function main()
 
     // CAMERAS
     camera = new THREE.PerspectiveCamera(60., canvas.width / canvas.height, 0.01, 10000.);  // CAMERA
-    camera.position.set(0., 0., 5.);    
+    camera.position.set(cameraX, cameraY, cameraZ);    
     cameraControls = new THREE.OrbitControls(camera, renderer.domElement);   
     cameraControls.autoRotateSpeed = 10.0;
-    cameraControls.update();
 
     // SCENE
     scene = new THREE.Scene();                                 

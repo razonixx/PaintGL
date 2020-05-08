@@ -7,9 +7,9 @@
 modelo
 - [x] Seleccionar un modelo de la escena para re-editarlo
 - [x] Seleccionar un modelo de la escena para eliminarlo
-- [ ] Agregar una cámara
-- [ ] Especificar los parámetros de la cámara (eye, target, up)
-- [ ] Especificar el tipo de proyección
+- [x] Agregar una cámara
+- [x] Especificar los parámetros de la cámara (eye, target, up)
+- [x] Especificar el tipo de proyección
 ## Modo de Animación
 - [x] Iniciar (play) una animación de todos los objetos de la escena que tengan especificada una animación
 - [x] Pausar una animación
