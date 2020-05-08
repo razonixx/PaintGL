@@ -84,6 +84,7 @@ function toolsEvent(evt)
         // Here the loaded data is assumed to be an object
         function ( obj ) {
           // Add the loaded object to the scene
+          obj.name="";
           scene.add( obj );
           addToSelect(obj.id);
         },
@@ -284,12 +285,31 @@ function selectGeometry(id)
   }
   else
   {
-    geometryButton.innerHTML = mesh.geometry.type;
-    materialButton.innerHTML = mesh.material.type;
-    dropDownGeometry.disabled=false;
-    dropDownMaterial.disabled=false;
+    if(mesh.geometry == undefined)
+    {
+      geometryButton.innerHTML = "None";
+      materialButton.innerHTML = "None";
+      dropDownGeometry.disabled=true;
+      dropDownMaterial.disabled=true;
+    }
+    else
+    {
+      geometryButton.innerHTML = mesh.geometry.type;
+      materialButton.innerHTML = mesh.material.type;
+      dropDownGeometry.disabled=false;
+      dropDownMaterial.disabled=false;
+    }
     animationButtonDropDown.disabled=false;
     groupDropDown.disabled=false;
+  }
+
+  if(mesh.name == "")
+  {
+    document.getElementById("animationButton").innerHTML = "Animated: True";
+  }
+  else
+  {
+    document.getElementById("animationButton").innerHTML = "Animated: False";
   }
 
 
@@ -498,6 +518,7 @@ function updateMeshMaterial(id, material)
 function toggleAnimation(id)
 {
   var mesh = scene.getObjectById(id, true);
+  console.log(mesh)
   if(mesh.name == "")
   {
     mesh.name = "anim"+id;

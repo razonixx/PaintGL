@@ -32,8 +32,4 @@ de THREEJS.
 - [x] Paleta de colores 
 - [x] Algunas imágenes precargadas en la aplicación para el mapeo de texturas
 ## Misc
-- [ ] Diseño de la interfaz gráfica
-- [ ] Diseño del diagrama de estados
-- [ ] Diseño del diagrama de clases
-- [ ] Diseño de diagramas de secuencia
 - [x] Un readme super chido para trackear las cosas que tenemos que hacer
