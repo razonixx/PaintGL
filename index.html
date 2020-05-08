@@ -41,6 +41,28 @@
           Z <input id="rot-z" type="text" value="0" size="5" style="text-align:right;">
         </div>
         <hr>
+        <div>
+          Camera x <input id="cam-x" type="text" value="0" size="5" style="text-align:right;">
+          Camera y <input id="cam-y" type="text" value="0" size="5" style="text-align:right;">
+          Camera z <input id="cam-z" type="text" value="0" size="5" style="text-align:right;">
+        </div>
+        <hr>
+        <div>
+          left <input id="left" type="text" value="0" size="5" style="text-align:right;">
+          right <input id="right" type="text" value="0" size="5" style="text-align:right;">
+          top <input id="top" type="text" value="0" size="5" style="text-align:right;">
+        </div>
+        <div>
+          bottom <input id="bottom" type="text" value="0" size="5" style="text-align:right;">
+          near <input id="near" type="text" value="0" size="5" style="text-align:right;">
+          far <input id="far" type="text" value="0" size="5" style="text-align:right;">
+        </div>
+        <br></br>
+        <div>
+          <button type="button" class="btn btn-primary" onclick="perspectiveProjection()" enabled>Perspective</button>
+          <button type="button" class="btn btn-primary" onclick="orthographicProjection()" enabled>Orthographic</button>
+        </div>
+        <hr>
         <div class="btn-group">
           <button type="button" class="btn btn-primary" disabled>Geometries</button>
           <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -96,17 +118,6 @@
         <span class="sr-only">Toggle Dropdown</span>
       </button>
       <div id="EraseList" class="dropdown-menu">
-      </div>
-    </div>
-
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary" disabled>Projection</button>
-      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="sr-only">Toggle Dropdown</span>
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#" onclick="perspectiveProjection();">Perspective</a>
-        <a class="dropdown-item" href="#" onclick="orthographicProjection();">Orthographic</a>
       </div>
     </div>
     

@@ -166,19 +166,29 @@ function toolsEvent(evt)
 
 function perspectiveProjection()
 {
+  cameraX = parseFloat(document.getElementById("cam-x").value);
+  cameraY = parseFloat(document.getElementById("cam-y").value);
+  cameraZ = parseFloat(document.getElementById("cam-z").value);
   camera = new THREE.PerspectiveCamera(60., canvas.width / canvas.height, 0.01, 10000.);
-  camera.position.set(0., 0., 5.); 
+  camera.position.set(cameraX, cameraY, cameraZ); 
   cameraControls = new THREE.OrbitControls(camera, renderer.domElement);   
   cameraControls.autoRotateSpeed = 10.0;
 }
 
 function orthographicProjection()
 {
-  camera = new THREE.OrthographicCamera(canvas.width / - 2, canvas.width / 2, canvas.height / 2, canvas.height / - 2, 0.01, 1000);
-  camera.position.set(0., 0., 5.); 
-  camera.updateProjectionMatrix();
-  cameraControls = new THREE.OrbitControls(camera, renderer.domElement);   
-  cameraControls.autoRotateSpeed = 10.0;
+  cameraX = parseFloat(document.getElementById("cam-x").value);
+  cameraY = parseFloat(document.getElementById("cam-y").value);
+  cameraZ = parseFloat(document.getElementById("cam-z").value);
+  let left = parseFloat(document.getElementById("left").value);
+  let right = parseFloat(document.getElementById("right").value);
+  let top = parseFloat(document.getElementById("top").value);
+  let bottom = parseFloat(document.getElementById("bottom").value);
+  let near = parseFloat(document.getElementById("near").value);
+  let far = parseFloat(document.getElementById("far").value);
+
+  camera = new THREE.OrthographicCamera(left * aRatio, right * aRatio, top, bottom, near, far);
+  camera.position.set(cameraX, cameraY, cameraZ); 
 }
 
 function colorPaletteEvent(event)
